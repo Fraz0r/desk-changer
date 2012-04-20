@@ -13,4 +13,9 @@ configure_file (
 	"${PROJECT_BINARY_DIR}/includes/desk-changer.h"
 )
 
+find_package (PkgConfig REQUIRED)
+pkg_check_modules (GTK3 REQUIRED gtk+-3.0)
+
+
+add_definitions (-Wall)
 add_subdirectory (src)

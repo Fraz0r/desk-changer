@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="81">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df name="desk-changer" root=".">
+      <df name="CMakeFiles">
+        <df name="CMakeTmp">
+          <df name="CMakeFiles">
+            <df name="cmTryCompileExec.dir">
+            </df>
+          </df>
+        </df>
+        <df name="CompilerIdC">
+          <in>CMakeCCompilerId.c</in>
+          <in>a.out</in>
+        </df>
+        <df name="CompilerIdCXX">
+          <in>CMakeCXXCompilerId.cpp</in>
+          <in>a.out</in>
+        </df>
+        <in>CMakeCCompiler.cmake</in>
+        <in>CMakeCXXCompiler.cmake</in>
+        <in>CMakeDetermineCompilerABI_C.bin</in>
+        <in>CMakeDetermineCompilerABI_CXX.bin</in>
+        <in>CMakeOutput.log</in>
+        <in>CMakeSystem.cmake</in>
+        <in>cmake.check_cache</in>
+      </df>
+      <df name="includes">
+        <in>desk-changer.h</in>
+      </df>
+      <df name="resources">
+      </df>
+      <df name="src">
+        <df name="CMakeFiles">
+        </df>
+        <df name="desk-changer">
+          <df name="CMakeFiles">
+            <df name="desk-changer.dir">
+              <in>DependInfo.cmake</in>
+              <in>build.make</in>
+              <in>cmake_clean.cmake</in>
+              <in>depend.make</in>
+              <in>flags.make</in>
+              <in>link.txt</in>
+              <in>progress.make</in>
+            </df>
+          </df>
+          <in>desk-changer.c</in>
+        </df>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>CMakeLists.txt</itemPath>
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>GNU|GNU</compilerSet>
+      </toolsSet>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+        </makeTool>
+      </makefileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
