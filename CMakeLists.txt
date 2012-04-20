@@ -13,9 +13,4 @@ configure_file (
 	"${PROJECT_BINARY_DIR}/includes/desk-changer.h"
 )
 
-# Now add the include path
-include_directories (
-	"${PROEJECT_BINARY_DIR}/includes/"
-)
-
 add_subdirectory (src)
