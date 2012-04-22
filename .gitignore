@@ -3,5 +3,5 @@
 *Makefile
 *cmake_install.cmake
 nbproject/private/
-includes/desk-changer.h
+includes/config.h
 /nbproject/private/

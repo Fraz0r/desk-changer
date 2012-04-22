@@ -2,15 +2,8 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 
+#include "config.h"
 #include "desk-changer.h"
-
-// Function defs
-void desk_changer_about();
-void desk_changer_init_main_window();
-void desk_changer_init_tray_icon();
-void desk_changer_show_tray_menu(GtkStatusIcon *, guint, guint, gpointer);
-void desk_changer_wallpaper_next();
-void desk_changer_wallpaper_previous();
 
 // Variable defs
 GtkWidget *desk_changer_window = NULL, *desk_changer_tray_menu = NULL;
@@ -37,13 +30,49 @@ void desk_changer_about()
 	gtk_widget_destroy(GTK_WIDGET(about));
 }
 
+void desk_changer_delete_main_window()
+{
+	gtk_widget_hide(desk_changer_window);
+}
+
 void desk_changer_init_main_window()
 {
+	GtkWidget *mainbox;
+
+	if (desk_changer_window) return;
+
 	desk_changer_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	g_signal_connect(G_OBJECT(desk_changer_window), "delete-event", G_CALLBACK(desk_changer_delete_main_window), NULL);
 	gtk_window_set_title(GTK_WINDOW(desk_changer_window), "DeskChanger");
-	g_signal_connect(desk_changer_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	mainbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
+	gtk_container_add(GTK_CONTAINER(desk_changer_window), mainbox);
+	desk_changer_init_menu_bar(GTK_BOX(mainbox));
 	gtk_widget_show_all(desk_changer_window);
 	gtk_window_present(GTK_WINDOW(desk_changer_window));
+}
+
+void desk_changer_init_menu_bar(GtkBox *mainbox)
+{
+	GtkWidget *menubar, *filemenu, *file, *quit, *helpmenu, *help, *about;
+
+	menubar = gtk_menu_bar_new();
+	filemenu = gtk_menu_new();
+	helpmenu = gtk_menu_new();
+	file = gtk_menu_item_new_with_label("File");
+	help = gtk_menu_item_new_with_label("Help");
+	quit = gtk_menu_item_new_with_label("Quit");
+	about = gtk_menu_item_new_with_label("About");
+
+	g_signal_connect(G_OBJECT(quit), "activate", G_CALLBACK(gtk_main_quit), NULL);
+	g_signal_connect(G_OBJECT(about), "activate", G_CALLBACK(desk_changer_about), NULL);
+
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(file), filemenu);
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(help), helpmenu);
+	gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), quit);
+	gtk_menu_shell_append(GTK_MENU_SHELL(helpmenu), about);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menubar), file);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menubar), help);
+	gtk_box_pack_start(mainbox, menubar, FALSE, FALSE, 3);
 }
 
 void desk_changer_init_tray_icon()
@@ -53,6 +82,7 @@ void desk_changer_init_tray_icon()
 	tray_icon = gtk_status_icon_new_from_file("/home/eric/Projects/desk-changer/resources/desk-changer.png");
 	gtk_status_icon_set_tooltip_text(tray_icon, "DeskChanger");
 	g_signal_connect(G_OBJECT(tray_icon), "popup-menu", G_CALLBACK(desk_changer_show_tray_menu), NULL);
+	g_signal_connect(G_OBJECT(tray_icon), "activate", G_CALLBACK(desk_changer_toggle_window), NULL);
 	gtk_status_icon_set_visible(tray_icon, TRUE);
 }
 
@@ -85,6 +115,15 @@ void desk_changer_show_tray_menu(GtkStatusIcon *status_icon, guint button, guint
 
 	gtk_widget_show_all(desk_changer_tray_menu);
 	gtk_menu_popup(GTK_MENU(desk_changer_tray_menu), NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time);
+}
+
+void desk_changer_toggle_window(GtkWidget *widget, GdkEventWindowState *event, gpointer tray_icon)
+{
+	if (gtk_widget_get_visible(desk_changer_window)) {
+		gtk_widget_hide(desk_changer_window);
+	} else {
+		gtk_widget_show_all(desk_changer_window);
+	}
 }
 
 void desk_changer_wallpaper_next()

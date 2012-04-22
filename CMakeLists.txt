@@ -12,8 +12,8 @@ option (ENABLE_DEBUG "Enable debugging features and compile flags" OFF)
 
 # Configure the header file
 configure_file (
-	"${PROJECT_SOURCE_DIR}/includes/desk-changer.h.in"
-	"${PROJECT_BINARY_DIR}/includes/desk-changer.h"
+	"${PROJECT_SOURCE_DIR}/includes/config.h.in"
+	"${PROJECT_BINARY_DIR}/includes/config.h"
 )
 
 if (ENABLE_DEBUG)
